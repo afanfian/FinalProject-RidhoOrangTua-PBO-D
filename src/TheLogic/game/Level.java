@@ -66,6 +66,7 @@ public class Level implements ActionListener {
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
        
         frame.add(Tlevel);
         frame.add(Backround);

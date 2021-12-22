@@ -1,5 +1,5 @@
 package TheLogic.game;
 
-public class Resulit {
+public class Result {
 
 }

@@ -114,6 +114,7 @@ public class Quiz implements ActionListener{
 		frame.getContentPane().setBackground(new Color(193,207,192));
 		frame.setLayout(null);
 		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 
 		bHome.setIcon(new ImageIcon(bHomeImg));
 		bHome.setBounds(590, 20, 60, 60);
@@ -252,7 +253,6 @@ public class Quiz implements ActionListener{
 		if (gameMode == 3) jawab = hardAnswers[index];
 		
 		Timer pause = new Timer(1000, new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				seconds= 25;
