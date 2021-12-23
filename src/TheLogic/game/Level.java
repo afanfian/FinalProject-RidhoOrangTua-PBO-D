@@ -84,7 +84,7 @@ public class Level implements ActionListener {
     }
 
     private void toGame(int value){
-        Quiz quiz = new Quiz(value);
+        QuestionBank questionBank = new QuestionBank(value);
         System.out.println(value);
     }
 

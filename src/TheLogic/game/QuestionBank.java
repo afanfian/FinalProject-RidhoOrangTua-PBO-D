@@ -187,6 +187,7 @@ public class QuestionBank implements ActionListener {
 		frame.add(textarea);
 		frame.add(textfield);
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 		
 		nextQuestion();
 		backHome();
@@ -199,6 +200,11 @@ public class QuestionBank implements ActionListener {
 	public void toHome(int value) {
 		Home home = new Home();
 	}
+	private void toGame(int value){
+        Result result = new Result(value);
+        System.out.println(value);
+    }
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
