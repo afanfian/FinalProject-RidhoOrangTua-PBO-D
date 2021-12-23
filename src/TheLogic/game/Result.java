@@ -43,6 +43,16 @@ public class Result {
 	Image bHomeImg;
 
 	public Result (int mode) {
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(700,700);
+		frame.getContentPane().setBackground(new Color(193,207,192));
+		frame.setLayout(null);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+
+		bHome.setIcon(new ImageIcon(bHomeImg));
+		bHome.setBounds(590, 20, 60, 60);
+//		bHome.addActionListener(this);
 		
 		textfield.setBounds(15,0,650,80);
 		textfield.setBackground(new Color(193,207,192));
@@ -50,7 +60,15 @@ public class Result {
 		textfield.setFont(new Font("Fredoka One",Font.BOLD,50));
 		textfield.setHorizontalAlignment(JTextField.LEFT);
 		textfield.setEditable(false);
-		
+
+		textarea.setBounds(50,150,550,250);
+		textarea.setLineWrap(true);
+		textarea.setWrapStyleWord(true);
+		textarea.setBackground(new Color(107,122,161));
+		textarea.setForeground(new Color(249,249,249));
+		textarea.setFont(new Font("Fredoka One",Font.BOLD,40));
+		textarea.setEditable(false);
+
 		buttonT.setIcon(new ImageIcon(trueImage));
 		buttonT.setBounds(150,450,109,109);
 		buttonT.setFont(new Font("Fredoka One",Font.BOLD,35));
@@ -62,7 +80,13 @@ public class Result {
 		buttonF.setFont(new Font("Fredoka One",Font.BOLD,35));
 		buttonF.setFocusable(false);
 //		buttonF.addActionListener(this);
-		
+
+		text.setBounds(300,445,100,120);
+		text.setBackground(new Color(193,207,192));
+		text.setForeground(new Color(40,31,1));
+		text.setFont(new Font("Fredoka One",Font.BOLD,40));
+		text.setText("OR");
+
 		seconds_left.setBounds(480,20,100,60);
 		seconds_left.setBackground(new Color(25,25,25));
 		seconds_left.setForeground(new Color(216,91,22));
@@ -72,7 +96,7 @@ public class Result {
 		seconds_left.setHorizontalAlignment(JLabel.RIGHT);
 		seconds_left.setHorizontalAlignment(JTextField.CENTER);
 		seconds_left.setText(String.valueOf(seconds));
-		
+
 		number_right.setBounds(225,225,200,100);
 		number_right.setBackground(new Color(231, 224,201));
 		number_right.setForeground(new Color(40,31,0));
@@ -100,18 +124,7 @@ public class Result {
 		frame.add(textarea);
 		frame.add(textfield);
 		frame.setVisible(true);
-		
-		backHome();
 	}
-	
-	public void backHome() {
-		bHome.addActionListener(e -> toHome(1));
-	}
-	
-	public void toHome(int value) {
-		Home home = new Home();
-	}
-	 
 	public void results(){
 			
 			buttonT.setEnabled(false);

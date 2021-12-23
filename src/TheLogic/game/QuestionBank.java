@@ -1,22 +1,15 @@
 package TheLogic.game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.Timer;
+import javax.imageio.ImageIO;
 
-public class QuestionBank implements ActionListener {
+public class QuestionBank implements ActionListener{
+	
+	private static final int Result = 0;
 	String[] easyQuestions = 	{
 			"2 + 2 = 10",
 			"3 x 3 = 9",
@@ -49,7 +42,7 @@ public class QuestionBank implements ActionListener {
 		};
 	
 	char[] mediumAnswers = 		{
-			'F',
+			'T',
 			'T',
 			'T',
 			'F',
@@ -70,6 +63,7 @@ public class QuestionBank implements ActionListener {
 	int index;
 	int correct_guesses =0;
 	int total_questions;
+	int result;
 	int seconds=25;
 	
 	JFrame frame = new JFrame("The LogiC - by Fuad & Fian");
@@ -84,6 +78,7 @@ public class QuestionBank implements ActionListener {
 	JLabel time_label = new JLabel();
 	JLabel seconds_left = new JLabel();
 	JTextField number_right = new JTextField();
+	JTextField percentage = new JTextField();
 	Image trueImage;
 	Image falseImage;
 	Image bHomeImg;
@@ -120,6 +115,7 @@ public class QuestionBank implements ActionListener {
 		frame.getContentPane().setBackground(new Color(193,207,192));
 		frame.setLayout(null);
 		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 
 		bHome.setIcon(new ImageIcon(bHomeImg));
 		bHome.setBounds(590, 20, 60, 60);
@@ -175,6 +171,14 @@ public class QuestionBank implements ActionListener {
 		number_right.setBorder(BorderFactory.createBevelBorder(1));
 		number_right.setHorizontalAlignment(JTextField.CENTER);
 		number_right.setEditable(false);
+
+		percentage.setBounds(225,325,200,100);
+		percentage.setBackground(new Color(231, 224,201));
+		percentage.setForeground(new Color(40,31,0));
+		percentage.setFont(new Font("Fredoka One",Font.BOLD,50));
+		percentage.setBorder(BorderFactory.createBevelBorder(1));
+		percentage.setHorizontalAlignment(JTextField.CENTER);
+		percentage.setEditable(false);
 		
 		frame.add(text);
 		frame.add(bHome);
@@ -187,7 +191,6 @@ public class QuestionBank implements ActionListener {
 		frame.add(textarea);
 		frame.add(textfield);
 		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
 		
 		nextQuestion();
 		backHome();
@@ -200,11 +203,6 @@ public class QuestionBank implements ActionListener {
 	public void toHome(int value) {
 		Home home = new Home();
 	}
-	private void toGame(int value){
-        Result result = new Result(value);
-        System.out.println(value);
-    }
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -232,6 +230,7 @@ public class QuestionBank implements ActionListener {
 	public void nextQuestion() {
 		
 		if(index>=total_questions) {
+			results();
 		}
 		else {
 			textfield.setText("The LogiC");
@@ -267,5 +266,26 @@ public class QuestionBank implements ActionListener {
 		});
 		pause.setRepeats(false);
 		pause.start();
+	}
+//	 private void toGame(int value){
+//	        Result result = new Result(value);
+//	        System.out.println(value);
+//	    }
+	public void results(){
+		buttonT.setEnabled(false);
+		buttonF.setEnabled(false);
+		
+		result = (int)((correct_guesses/(double)total_questions)*100);
+		
+		textfield.setText("RESULTS!");
+		
+		number_right.setText("("+correct_guesses+"/"+total_questions+")");
+		percentage.setText(result+"%");
+		
+		frame.add(number_right);
+		frame.add(percentage);
+//		Result result = new Result(value);
+//        System.out.println(value);
+//		
 	}
 }
