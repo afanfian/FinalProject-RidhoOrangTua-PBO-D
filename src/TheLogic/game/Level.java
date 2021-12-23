@@ -66,6 +66,7 @@ public class Level implements ActionListener {
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
        
         frame.add(Tlevel);
         frame.add(Backround);
@@ -83,7 +84,7 @@ public class Level implements ActionListener {
     }
 
     private void toGame(int value){
-        Quiz quiz = new Quiz(value);
+        QuestionBank questionBank = new QuestionBank(value);
         System.out.println(value);
     }
 

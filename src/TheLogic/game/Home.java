@@ -41,6 +41,7 @@ public class Home implements ActionListener {
 		frame.setResizable(true);
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		showsLevel();
 
 		
