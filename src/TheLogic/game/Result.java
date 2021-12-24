@@ -22,8 +22,6 @@ public class Result implements ActionListener {
 	char guess;
 	char answer;
 	int index;
-	int correct_guesses =0;
-	int total_questions;
 	int result;
 	int seconds=25;
 	
@@ -44,7 +42,7 @@ public class Result implements ActionListener {
 	Image falseImage;
 	Image bHomeImg;
 
-	public Result () {
+	public Result (int correct, int jumlahsoal) {
 		try {
 			trueImage = ImageIO.read(getClass().getResource("true_1ppi.png"));
 			falseImage = ImageIO.read(getClass().getResource("false_1ppi.png"));
@@ -135,23 +133,25 @@ public class Result implements ActionListener {
 		frame.add(textarea);
 		frame.add(textfield);
 		frame.setVisible(true);
+		
+		buttonT.setEnabled(false);
+		buttonF.setEnabled(false);
+		
+		result = (int)((correct/(double)jumlahsoal)*100);
+		
+		textfield.setText("RESULTS!");
+		
+		number_right.setText("("+correct+"/"+jumlahsoal+")");
+		percentage.setText(result+"%");
+		
+		frame.add(number_right);
+		frame.add(percentage);
 	}
-	public void results(){
-			
-			buttonT.setEnabled(false);
-			buttonF.setEnabled(false);
-			
-			result = (int)((correct_guesses/(double)total_questions)*100);
-			
-			textfield.setText("RESULTS!");
-			
-			number_right.setText("("+correct_guesses+"/"+total_questions+")");
-			percentage.setText(result+"%");
-			
-			frame.add(number_right);
-			frame.add(percentage);
-			
-		}
+//	public void results(){
+//			
+//
+//			
+//		}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

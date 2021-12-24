@@ -230,7 +230,7 @@ public class QuestionBank implements ActionListener{
 	public void nextQuestion() {
 		
 		if(index>=total_questions) {
-			results();
+			Result result = new Result(correct_guesses, total_questions);
 		}
 		else {
 			textfield.setText("The LogiC");
@@ -267,25 +267,22 @@ public class QuestionBank implements ActionListener{
 		pause.setRepeats(false);
 		pause.start();
 	}
-//	 private void toGame(int value){
-//	        Result result = new Result(value);
-//	        System.out.println(value);
-//	    }
-	public void results(){
-		buttonT.setEnabled(false);
-		buttonF.setEnabled(false);
-		
-		result = (int)((correct_guesses/(double)total_questions)*100);
-		
-		textfield.setText("RESULTS!");
-		
-		number_right.setText("("+correct_guesses+"/"+total_questions+")");
-		percentage.setText(result+"%");
-		
-		frame.add(number_right);
-		frame.add(percentage);
-//		Result result = new Result(value);
+//	private void toGame(int value){
+//        Result result = new Result();
 //        System.out.println(value);
+//    }
+//	public void results(){
+//		buttonT.setEnabled(false);
+//		buttonF.setEnabled(false);
 //		
-	}
+//		result = (int)((correct_guesses/(double)total_questions)*100);
+//		
+//		textfield.setText("RESULTS!");
+//		
+//		number_right.setText("("+correct_guesses+"/"+total_questions+")");
+//		percentage.setText(result+"%");
+//		
+//		frame.add(number_right);
+//		frame.add(percentage);	
+//	}
 }
