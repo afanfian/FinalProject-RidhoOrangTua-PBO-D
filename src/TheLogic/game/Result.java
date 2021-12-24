@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,13 +17,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
-public class Result {
+public class Result implements ActionListener {
 	public int gameMode;
 	char guess;
 	char answer;
 	int index;
-	int correct_guesses =0;
-	int total_questions;
 	int result;
 	int seconds=25;
 	
@@ -42,7 +42,16 @@ public class Result {
 	Image falseImage;
 	Image bHomeImg;
 
-	public Result (int mode) {
+	public Result (int correct, int jumlahsoal) {
+		try {
+			trueImage = ImageIO.read(getClass().getResource("true_1ppi.png"));
+			falseImage = ImageIO.read(getClass().getResource("false_1ppi.png"));
+			bHomeImg = ImageIO.read(getClass().getResource("homeeeppi.png"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700,700);
 		frame.getContentPane().setBackground(new Color(193,207,192));
@@ -73,13 +82,13 @@ public class Result {
 		buttonT.setBounds(150,450,109,109);
 		buttonT.setFont(new Font("Fredoka One",Font.BOLD,35));
 		buttonT.setFocusable(false);
-//		buttonT.addActionListener(this);
+		buttonT.addActionListener(this);
 
 		buttonF.setIcon(new ImageIcon(falseImage));
 		buttonF.setBounds(400,450,109,109);
 		buttonF.setFont(new Font("Fredoka One",Font.BOLD,35));
 		buttonF.setFocusable(false);
-//		buttonF.addActionListener(this);
+		buttonF.addActionListener(this);
 
 		text.setBounds(300,445,100,120);
 		text.setBackground(new Color(193,207,192));
@@ -124,21 +133,28 @@ public class Result {
 		frame.add(textarea);
 		frame.add(textfield);
 		frame.setVisible(true);
+		
+		buttonT.setEnabled(false);
+		buttonF.setEnabled(false);
+		
+		result = (int)((correct/(double)jumlahsoal)*100);
+		
+		textfield.setText("RESULTS!");
+		
+		number_right.setText("("+correct+"/"+jumlahsoal+")");
+		percentage.setText(result+"%");
+		
+		frame.add(number_right);
+		frame.add(percentage);
 	}
-	public void results(){
-			
-			buttonT.setEnabled(false);
-			buttonF.setEnabled(false);
-			
-			result = (int)((correct_guesses/(double)total_questions)*100);
-			
-			textfield.setText("RESULTS!");
-			
-			number_right.setText("("+correct_guesses+"/"+total_questions+")");
-			percentage.setText(result+"%");
-			
-			frame.add(number_right);
-			frame.add(percentage);
-			
-		}
+//	public void results(){
+//			
+//
+//			
+//		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
