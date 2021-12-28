@@ -146,12 +146,18 @@ public class Result implements ActionListener {
 		
 		frame.add(number_right);
 		frame.add(percentage);
+		
+		backHome();
 	}
-//	public void results(){
-//			
-//
-//			
-//		}
+	public void backHome() {
+		bHome.addActionListener(e -> toHome(1));
+	}
+	
+	public void toHome(int value) {
+		Home home = new Home();
+		System.out.println(value);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

@@ -1,62 +1,32 @@
 package TheLogic.game;
 
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 
+
+
 public class QuestionBank implements ActionListener{
 	
 	private static final int Result = 0;
-	String[] easyQuestions = 	{
-			"2 + 2 = 10",
-			"3 x 3 = 9",
-			"10 + 10 = 20",
-			"20 - 10 = 10",
-			"1 + 10 + - 8 = 7"
-							};
-	String[] mediumQuestions = 	{
-			"2 + 2 x 10 + 5 = 19",
-			"2 + 2 + 2 + 2 + 2 + 10 + 10 + 50 = 80",
-			"15 : 3 : 5 = 1",
-			"10 + 10 – 200 + 10 = 90",
-			"90 + 90 + 90 = 270"
-		};
+	String[] easyQuestions;
+	String[] mediumQuestions;
+	String[] hardQuestions;
+
+	char[] easyAnswers;
+
+
+	char[] mediumAnswers;
+
+	char[] hardAnswers;
 	
-	String[] hardQuestions = 	{
-			"10 x 10 x 10 x 10 x 10 + 9000 = 78232",
-			"100  + 100 – 200 + 500 = 200",
-			"189 + 90 + 12 + 124 = 500",
-			"100 – 50 – 20 = 30",
-			"100 : 10 : 2 = 10"
-		};
-	
-	char[] easyAnswers = 		{
-			'F',
-			'T',
-			'T',
-			'T',
-			'F'
-		};
-	
-	char[] mediumAnswers = 		{
-			'T',
-			'T',
-			'T',
-			'F',
-			'T'
-		};
-	
-	char[] hardAnswers = 		{
-			'F',
-			'F',
-			'F',
-			'T',
-			'F'
-		};
-	
+
 	public int gameMode;
 	char guess;
 	char answer;
@@ -92,8 +62,9 @@ public class QuestionBank implements ActionListener{
 			if(seconds<=0) {
 				displayAnswer();
 			}
-			}
-		});
+		}
+	});
+	
 	
 	public QuestionBank(int mode) {
         try {
@@ -101,6 +72,84 @@ public class QuestionBank implements ActionListener{
 			falseImage = ImageIO.read(getClass().getResource("false_1ppi.png"));
 			bHomeImg = ImageIO.read(getClass().getResource("homeeeppi.png"));
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        // Input soal dan jawaban easy
+        InputStream is = getClass().getResourceAsStream("easyQuestions.txt");
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		
+		int numberOfQuestion = -1;
+		
+		try {
+			numberOfQuestion = br.read() - 48;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		easyQuestions = new String[numberOfQuestion];
+		easyAnswers = new char[numberOfQuestion];
+		
+		try {
+			br.readLine();
+			for(int i = 0; i < numberOfQuestion; i++) {
+				easyQuestions[i] = br.readLine();
+				easyAnswers[i] = (char)br.read();
+				br.readLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Input soal dan jawaban medium
+		is = getClass().getResourceAsStream("mediumQuestions.txt");
+		br = new BufferedReader(new InputStreamReader(is));
+		
+		numberOfQuestion = -1;
+		
+		try {
+			numberOfQuestion = br.read() - 48;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mediumQuestions = new String[numberOfQuestion];
+		mediumAnswers = new char[numberOfQuestion];
+		
+		try {
+			br.readLine();
+			for(int i = 0; i < numberOfQuestion; i++) {
+				mediumQuestions[i] = br.readLine();
+				mediumAnswers[i] = (char)br.read();
+				br.readLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Input soal dan jawaban hard
+		is = getClass().getResourceAsStream("hardQuestions.txt");
+		br = new BufferedReader(new InputStreamReader(is));
+		
+		numberOfQuestion = -1;
+		
+		try {
+			numberOfQuestion = br.read() - 48;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		hardQuestions = new String[numberOfQuestion];
+		hardAnswers = new char[numberOfQuestion];
+		
+		try {
+			br.readLine();
+			for(int i = 0; i < numberOfQuestion; i++) {
+				hardQuestions[i] = br.readLine();
+				hardAnswers[i] = (char)br.read();
+				br.readLine();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -120,6 +169,7 @@ public class QuestionBank implements ActionListener{
 		bHome.setIcon(new ImageIcon(bHomeImg));
 		bHome.setBounds(590, 20, 60, 60);
 		bHome.addActionListener(this);
+		bHome.setVisible(true);
 		
 		textfield.setBounds(15,0,650,80);
 		textfield.setBackground(new Color(193,207,192));
@@ -202,30 +252,31 @@ public class QuestionBank implements ActionListener{
 	
 	public void toHome(int value) {
 		Home home = new Home();
+		System.out.println(value);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-			char jawab = 0;
+		char jawab = 0;
+		
+		if (gameMode == 1) jawab = easyAnswers[index];
+		if (gameMode == 2) jawab = mediumAnswers[index];
+		if (gameMode == 3) jawab = hardAnswers[index];
 			
-			if (gameMode == 1) jawab = easyAnswers[index];
-			if (gameMode == 2) jawab = mediumAnswers[index];
-			if (gameMode == 3) jawab = hardAnswers[index];
 			
-			
-			if(e.getSource()==buttonT) {
-				answer= 'T';
-				if(answer == jawab) {
-					correct_guesses++;
-				}
+		if(e.getSource()==buttonT) {
+			answer= 'T';
+			if(answer == jawab) {
+				correct_guesses++;
 			}
-			if(e.getSource()==buttonF) {
-				answer= 'F';
-				if(answer == jawab) {
+		}
+		if(e.getSource()==buttonF) {
+			answer= 'F';
+			if(answer == jawab) {
 					correct_guesses++;
-				}
 			}
-			displayAnswer();
+		}
+		displayAnswer();
 	}
 	public void nextQuestion() {
 		
